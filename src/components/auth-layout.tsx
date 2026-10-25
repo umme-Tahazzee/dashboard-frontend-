@@ -16,7 +16,7 @@ export function AuthLayout({ children }: { children: React.ReactNode }) {
             Students share their work, mentors approve or give feedback, all in one place.
           </p>
         </div>
-        <p className="text-sm text-primary-foreground/70">© {new Date().getFullYear()} Project Review</p>
+        <p className="text-sm text-primary-foreground/70"> Project Review</p>
         <div className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-white/10" />
         <div className="pointer-events-none absolute -bottom-32 -left-16 size-96 rounded-full bg-white/5" />
       </aside>
