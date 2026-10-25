@@ -1,4 +1,4 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:5000/api/v1"
+const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "/api/v1"
 
 export type PageMeta = { page: number; limit: number; total: number; totalPages: number }
 
@@ -25,7 +25,9 @@ export async function api<T>(
       ...init,
       // The JWT lives in an httpOnly cookie set by the API
       credentials: "include",
-      headers: { ...(init.body ? { "Content-Type": "application/json" } : {}), ...init.headers },
+      headers: { ...(init.body ? 
+        { "Content-Type": "application/json" } 
+        : {}), ...init.headers },
       body: init.body ? JSON.stringify(init.body) : undefined,
     })
   } catch (error) {

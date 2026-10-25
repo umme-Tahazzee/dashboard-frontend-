@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { AuthLayout } from "@/components/auth-layout"
 import { FormField } from "@/components/form-field"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -22,7 +23,8 @@ export default function LoginPage() {
 
   async function onSubmit(values: LoginValues) {
     try {
-      const { data } = await api<{ user: User }>("/auth/login", { method: "POST", body: values })
+      const { data } = await api<{ user: User }>("/auth/login", 
+        { method: "POST", body: values })
       router.replace(homeFor(data.user.role))
     } catch (error) {
       toast.error(errorMessage(error))
@@ -30,8 +32,8 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <Card className="w-full max-w-sm">
+    <AuthLayout>
+      <Card className="shadow-sm">
         <CardHeader>
           <CardTitle className="text-xl">Welcome back</CardTitle>
           <CardDescription>Log in to submit or review projects.</CardDescription>
@@ -44,7 +46,7 @@ export default function LoginPage() {
             <FormField label="Password" htmlFor="password" error={errors.password?.message}>
               <Input id="password" type="password" autoComplete="current-password" {...register("password")} />
             </FormField>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
               {isSubmitting ? "Logging in..." : "Log in"}
             </Button>
           </form>
@@ -56,6 +58,6 @@ export default function LoginPage() {
           </p>
         </CardContent>
       </Card>
-    </div>
+    </AuthLayout>
   )
 }

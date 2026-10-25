@@ -4,6 +4,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { AuthLayout } from "@/components/auth-layout"
 import { FormField } from "@/components/form-field"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -36,8 +37,8 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center p-4">
-      <Card className="w-full max-w-sm">
+    <AuthLayout>
+      <Card className="shadow-sm">
         <CardHeader>
           <CardTitle className="text-xl">Create your student account</CardTitle>
           <CardDescription>Submit your projects and get mentor feedback.</CardDescription>
@@ -66,7 +67,7 @@ export default function SignupPage() {
                 {...register("confirmPassword")}
               />
             </FormField>
-            <Button type="submit" className="w-full" disabled={isSubmitting}>
+            <Button type="submit" size="lg" className="w-full" disabled={isSubmitting}>
               {isSubmitting ? "Creating account..." : "Sign up"}
             </Button>
           </form>
@@ -78,6 +79,6 @@ export default function SignupPage() {
           </p>
         </CardContent>
       </Card>
-    </div>
+    </AuthLayout>
   )
 }

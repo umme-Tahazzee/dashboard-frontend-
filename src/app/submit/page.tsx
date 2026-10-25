@@ -156,7 +156,11 @@ export default function SubmitPage() {
 
   return (
     <AppShell audience="student">
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="mb-6">
+        <h1 className="text-2xl font-semibold tracking-tight">My projects</h1>
+        <p className="text-sm text-muted-foreground">Submit your work and track mentor feedback.</p>
+      </div>
+      <div className="grid items-start gap-6 lg:grid-cols-2">
         <SubmissionForm onSubmitted={load} />
         <MySubmissions items={items} loading={loading} />
       </div>

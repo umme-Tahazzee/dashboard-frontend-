@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useState } from "react"
-import { Check, ChevronLeft, ChevronRight, ExternalLink, Search, X } from "lucide-react"
+import { Check, CheckCircle2, ChevronLeft, ChevronRight, Clock, ExternalLink, FolderKanban, Search, X, XCircle } from "lucide-react"
 import { toast } from "sonner"
 import { AppShell } from "@/components/app-shell"
 import { RejectDialog } from "@/components/reject-dialog"
@@ -38,22 +38,27 @@ function useDebounced<T>(value: T, delay = 300) {
 
 function StatsCards({ stats }: { stats: Stats | null }) {
   const cards = [
-    { label: "Total", value: stats?.total, tone: "" },
-    { label: "Pending", value: stats?.pending, tone: "text-amber-600 dark:text-amber-400" },
-    { label: "Approved", value: stats?.approved, tone: "text-emerald-600 dark:text-emerald-400" },
-    { label: "Rejected", value: stats?.rejected, tone: "text-rose-600 dark:text-rose-400" },
+    { label: "Total submissions", value: stats?.total, icon: FolderKanban, tone: "bg-primary/10 text-primary" },
+    { label: "Pending", value: stats?.pending, icon: Clock, tone: "bg-amber-500/10 text-amber-600 dark:text-amber-400" },
+    { label: "Approved", value: stats?.approved, icon: CheckCircle2, tone: "bg-emerald-500/10 text-emerald-600 dark:text-emerald-400" },
+    { label: "Rejected", value: stats?.rejected, icon: XCircle, tone: "bg-rose-500/10 text-rose-600 dark:text-rose-400" },
   ]
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
-      {cards.map((card) => (
-        <Card key={card.label} size="sm">
-          <CardContent>
-            <div className="text-sm text-muted-foreground">{card.label}</div>
-            {card.value === undefined ? (
-              <Skeleton className="mt-1 h-8 w-12" />
-            ) : (
-              <div className={cn("text-3xl font-semibold tabular-nums", card.tone)}>{card.value}</div>
-            )}
+    <div className="grid grid-cols-2 gap-4 xl:grid-cols-4">
+      {cards.map(({ label, value, icon: Icon, tone }) => (
+        <Card key={label}>
+          <CardContent className="flex items-center justify-between">
+            <div>
+              <div className="text-sm text-muted-foreground">{label}</div>
+              {value === undefined ? (
+                <Skeleton className="mt-1 h-8 w-12" />
+              ) : (
+                <div className="text-3xl font-semibold tabular-nums">{value}</div>
+              )}
+            </div>
+            <span className={cn("flex size-11 items-center justify-center rounded-xl", tone)}>
+              <Icon className="size-5" />
+            </span>
           </CardContent>
         </Card>
       ))}
@@ -181,7 +186,7 @@ export default function DashboardPage() {
 
             <div className="overflow-x-auto rounded-lg border">
               <Table>
-                <TableHeader>
+                <TableHeader className="bg-muted/50">
                   <TableRow>
                     <TableHead>Project</TableHead>
                     <TableHead>Student</TableHead>
